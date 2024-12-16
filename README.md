@@ -97,7 +97,7 @@ labels
 ├── image1.tif
 ├── image2.tif
 └── ...
-``
+```
 
 See `python xml2geotiff.py --help` for more options.
 
