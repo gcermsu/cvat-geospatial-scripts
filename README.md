@@ -1,18 +1,18 @@
 # CVAT Geospatial Tools
 This repository contains scripts for converting between CVAT-compatible file formats and geospatial rasters. 
 
-## Requirements
-The scripts are written in Python and require the following libraries:
-
-- `rasterio`
-- `numpy`
-- `shapely`
-- `pandas`
-- `opencv-python`
-
 These scripts have been tested with Python 3.8.19.
 
 ## Usage
+
+Clone the repository and install the required libraries using the following commands:
+
+```bash
+$ git clone https://github.com/gcermsu/cvat-geospatial-scripts.git
+$ cd cvat-geospatial-scripts
+$ python -m pip install -r requirements.txt
+```
+
 
 ### `geotiff2png.py`
 
@@ -22,7 +22,7 @@ Convert a directory of GeoTIFF files to PNG (or JPEG) images. The georeferencing
 
 Convert all GeoTIFF files in the `input` directory to PNG images in the `input_png` directory with the georeferencing metadata stored in the `input_json` directory:
 
-```
+```bash
 $ python geotiff2png.py input
 ```
 
@@ -81,7 +81,7 @@ NOTE: Annotations must be in CVAT 1.1 format, which is the default format for an
 
 Convert the annotations in `annotations.xml` to GeoTIFFs using the georeferencing metadata in the `input_json` directory:
 
-```
+```bash
 $ python xml2geojson.py annotations.xml input_json
 ```
 
