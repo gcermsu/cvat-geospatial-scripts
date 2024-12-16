@@ -22,8 +22,8 @@ Convert a directory of GeoTIFF files to PNG (or JPEG) images. The georeferencing
 
 Convert all GeoTIFF files in the `input` directory to PNG images in the `input_png` directory with the georeferencing metadata stored in the `input_json` directory:
 
-```bash
-python geotiff2png.py input
+```
+$ python geotiff2png.py input
 ```
 
 The resulting directory structure will be:
@@ -45,8 +45,8 @@ input_png
 
 See `python geotiff2png.py --help` for more options.
 
-```bash
-python geotiff2png.py --help
+```
+$ python geotiff2png.py --help
 usage: geotiff2png.py [-h] [-o OUTPUT] [-t THREADS] [-b BANDS [BANDS ...]] [-f {png,jpg,jpeg}] [-c {0,1,2,3,4,5,6,7,8,9}] [-jo JSON_OUTPUT] [-nj] input
 
 Convert GeoTIFF data to PNG and save georeferencing information in a JSON file
@@ -81,8 +81,8 @@ NOTE: Annotations must be in CVAT 1.1 format, which is the default format for an
 
 Convert the annotations in `annotations.xml` to GeoTIFFs using the georeferencing metadata in the `input_json` directory:
 
-```bash
-python xml2geojson.py annotations.xml input_json
+```
+$ python xml2geojson.py annotations.xml input_json
 ```
 
 The resulting directory structure will be:
@@ -101,8 +101,8 @@ labels
 
 See `python xml2geotiff.py --help` for more options.
 
-```bash
-python xml2geotiff.py --help
+```
+$ python xml2geotiff.py --help
 usage: xml2geotiff.py [-h] [-o OUTPUT_DIR] input_xml meta_dir
 
 Convert annotations in XML CVAT 1.1 Format to Georeferenced TIFFs
