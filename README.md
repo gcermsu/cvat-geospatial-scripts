@@ -10,7 +10,7 @@ The scripts are written in Python and require the following libraries:
 - `pandas`
 - `opencv-python`
 
-These scripts have been tested with Python 3.8.19
+These scripts have been tested with Python 3.8.19.
 
 ## Usage
 
@@ -128,4 +128,3 @@ These scripts are licensed under the MIT License, and are provided without warra
 ## Acknowledgements
 
 These scripts were developed by the [Geospatial Computing for Environmental Research (GCER) Lab](https://www.gcerlab.com/) at Mississippi State University. 
-```
