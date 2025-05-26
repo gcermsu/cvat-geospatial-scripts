@@ -116,7 +116,7 @@ def process_args(parser: argparse.ArgumentParser) -> argparse.Namespace:
     
     
     if args.output_dir is None:
-        args.output_dir = os.path.dirname(args.input_xml) + '/labels'
+        args.output_dir = os.path.dirname(args.input_xml) + os.sep + 'labels'
     
     init_dirs(args)
     
@@ -407,8 +407,18 @@ def create_raster_annotation(
             raise ValueError(f'No geometry or mask found for row {row.Index}')
     
     metadata_path = os.path.join(meta_dir, image_name.replace(".png", ".json"))
-    with open(metadata_path, 'rb') as f:
-        metadata = json.load(f)
+    try:
+        with open(metadata_path, 'rb') as f:
+            metadata = json.load(f)
+    except FileNotFoundError:
+        adj_image_name = '0' + image_name
+        metadata_path = os.path.join(meta_dir, adj_image_name.replace(".png", ".json"))
+        with open(metadata_path, 'rb') as f:
+            metadata = json.load(f)
+        image_name = adj_image_name
+    except Exception as e:
+        raise ValueError(f'Could not load metadata for {image_name} from {metadata_path}, got error: {e}')
+            
         
     try:
         metadata['crs'] = rio.crs.CRS.from_dict(metadata['crs'])
@@ -457,4 +467,4 @@ def init_dirs(args: argparse.Namespace) -> None:
 
 
 if __name__ == '__main__':
-    main()
+    exit(main())

@@ -1,5 +1,5 @@
 import json
-from typing import Iterator, List, Optional
+from typing import List, Optional
 import rasterio as rio
 import cv2 as cv
 import argparse
@@ -13,14 +13,14 @@ def main():
     
     args = parse_args()
     
-    in_paths = glob(args.input + '/*.tif')
+    in_paths = glob(args.input + os.sep + '*.tif')
     filenames = [os.path.basename(f).split('.')[0] for f in in_paths]
     
     pbar = tqdm(total=len(in_paths), desc='Converting GeoTIFFs', unit='files')
     
-    out_paths = [args.output + '/' + f + '.' + args.format for f in filenames]
+    out_paths = [args.output + os.sep + f + '.' + args.format for f in filenames]
     if args.json_output is not None:
-        json_out_paths = [args.json_output + '/' + f + '.json' for f in filenames]
+        json_out_paths = [args.json_output + os.sep + f + '.json' for f in filenames]
     else:
         json_out_paths = [None] * len(in_paths)
     
@@ -193,14 +193,11 @@ def process_args(parser: argparse.ArgumentParser) -> argparse.Namespace:
     if args.input is None:
         parser.error('Input directory is required')
     
-    if args.input[-1] == '/':
+    if args.input[-1] == os.sep:
         args.input = args.input[:-1]
     
     if args.output is None:
         args.output = args.input + '_' + args.format
-    
-    if args.input[-1] == '/':
-        args.input = args.input[:-1]
     
     if args.json_output is None and not args.no_json:
         args.json_output = args.input + '_' + 'json'
@@ -230,4 +227,4 @@ def init_dirs(args: argparse.Namespace) -> None:
 
 
 if __name__ == '__main__':
-    main()
+    exit(main())

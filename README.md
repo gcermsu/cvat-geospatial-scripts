@@ -1,7 +1,7 @@
 # CVAT Geospatial Tools
-This repository contains scripts for converting between CVAT-compatible file formats and geospatial rasters. 
+A small collection of helper scripts for working with geospatial data in CVAT (Computer Vision Annotation Tool). These scripts are designed to convert GeoTIFF files to PNG images, extract georeferencing metadata, and convert CVAT annotations to geo-referenced GeoTIFF files.
 
-These scripts have been tested with Python 3.8.19.
+These scripts have been tested with 3.8.19.
 
 ## Usage
 
@@ -10,11 +10,11 @@ Clone the repository and install the required libraries using the following comm
 ```bash
 $ git clone https://github.com/gcermsu/cvat-geospatial-scripts.git
 $ cd cvat-geospatial-scripts
-$ python -m pip install -r requirements.txt
+$ python -m pip install .
 ```
 
 
-### `geotiff2png.py`
+### `geotiff2png`
 
 Convert a directory of GeoTIFF files to PNG (or JPEG) images. The georeferencing metadata is stored in a JSON file in a separate directory.
 
@@ -23,7 +23,7 @@ Convert a directory of GeoTIFF files to PNG (or JPEG) images. The georeferencing
 Convert all GeoTIFF files in the `input` directory to PNG images in the `input_png` directory with the georeferencing metadata stored in the `input_json` directory:
 
 ```bash
-$ python geotiff2png.py input
+$ geotiff2png input
 ```
 
 The resulting directory structure will be:
@@ -43,11 +43,11 @@ input_png
 └── ...
 ```
 
-See `python geotiff2png.py --help` for more options.
+See `geotiff2png --help` for more options.
 
 ```
-$ python geotiff2png.py --help
-usage: geotiff2png.py [-h] [-o OUTPUT] [-t THREADS] [-b BANDS [BANDS ...]] [-f {png,jpg,jpeg}] [-c {0,1,2,3,4,5,6,7,8,9}] [-jo JSON_OUTPUT] [-nj] input
+$ geotiff2png --help
+usage: geotiff2png [-h] [-o OUTPUT] [-t THREADS] [-b BANDS [BANDS ...]] [-f {png,jpg,jpeg}] [-c {0,1,2,3,4,5,6,7,8,9}] [-jo JSON_OUTPUT] [-nj] input
 
 Convert GeoTIFF data to PNG and save georeferencing information in a JSON file
 
@@ -71,18 +71,18 @@ optional arguments:
   -nj, --no_json        Do not save the georeferencing information in a JSON file. Default is False
 ```
 
-### `xml2geotiff.py`
+### `xml2geotiff`
 
 Given an XML file with polygon, shape, or mask annotations in [CVAT 1.1 format](https://docs.cvat.ai/docs/manual/advanced/xml_format/#version-11) and a directory of JSON files containing georeferencing metadata, convert the annotations to a geo-referenced GeoTIFF file.
 
-NOTE: Annotations must be in CVAT 1.1 format, which is the default format for annotations exported from CVAT. The JSON files containing the georeferencing metadata must have the same name as the corresponding image name in the XML file.
+**NOTE: Annotations must be in CVAT 1.1 format, which is the default format for annotations exported from CVAT. The JSON files containing the georeferencing metadata must have the same name as the corresponding image name in the XML file.**
 
 #### Examples
 
 Convert the annotations in `annotations.xml` to GeoTIFFs using the georeferencing metadata in the `input_json` directory:
 
 ```bash
-$ python xml2geojson.py annotations.xml input_json
+$ xml2geojson annotations.xml input_json
 ```
 
 The resulting directory structure will be:
@@ -99,11 +99,11 @@ labels
 └── ...
 ```
 
-See `python xml2geotiff.py --help` for more options.
+See `xml2geotiff --help` for more options.
 
 ```
-$ python xml2geotiff.py --help
-usage: xml2geotiff.py [-h] [-o OUTPUT_DIR] input_xml meta_dir
+$ xml2geotiff --help
+usage: xml2geotiff [-h] [-o OUTPUT_DIR] input_xml meta_dir
 
 Convert annotations in XML CVAT 1.1 Format to Georeferenced TIFFs
 
