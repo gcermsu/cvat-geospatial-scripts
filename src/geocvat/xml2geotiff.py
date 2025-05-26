@@ -116,7 +116,10 @@ def process_args(parser: argparse.ArgumentParser) -> argparse.Namespace:
     
     
     if args.output_dir is None:
-        args.output_dir = os.path.dirname(args.input_xml) + os.sep + 'labels'
+        parent_dir = os.path.dirname(args.input_xml)
+        if parent_dir == '':
+            parent_dir = '.'
+        args.output_dir = parent_dir + os.sep + 'labels'
     
     init_dirs(args)
     
