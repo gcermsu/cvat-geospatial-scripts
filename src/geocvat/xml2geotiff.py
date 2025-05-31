@@ -27,7 +27,13 @@ def main():
             A colormap will not be written to output raster', UserWarning)
         colormap_dict = None
     
-    grouped_annotations_df = annotations_df.groupby('image_name')[['image_name', 'width', 'height', 'class_idx', 'area', 'polygon', 'mask']]
+    desired_columns = ['image_name', 'width', 'height', 'class_idx', 'area', 'polygon', 'mask']
+    for col in desired_columns:
+        if col not in annotations_df.columns:
+            warn(f'Attribute {col} not found in annotations file.')
+            desired_columns.remove(col)
+
+    grouped_annotations_df = annotations_df.groupby('image_name')[desired_columns]
     
     pbar = tqdm(total=len(grouped_annotations_df), desc='Creating raster annotations', unit='rasters')
     func = partial(
